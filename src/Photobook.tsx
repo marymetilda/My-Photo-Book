@@ -19,7 +19,9 @@ const Photobook = (props: { imageData: string[] }) => {
     // Move view based on mouse position
     const mouseHandler = (e: MouseEvent) => {
       const delta = (e.clientY / innerHeight - 0.5) * 10 - 20;
-      el.current!.style.transform = `translateZ(-20px) translateX(-175px) rotateX(${delta}deg)`;
+      if (props.imageData.length) {
+        el.current!.style.transform = `translateZ(-20px) translateX(-175px) rotateX(${delta}deg)`;
+      }
     };
     document.addEventListener("mousemove", mouseHandler);
   }, [props.imageData, angleUnit]);
