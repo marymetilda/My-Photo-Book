@@ -1,14 +1,25 @@
-import { useState } from "react";
-import SearchInput from "./SearchInput";
+import SearchInput, { Item } from "./SearchInput";
 import Photobook from "./Photobook";
 
+import useGetImageDataMutation from "./UseGetImageDataMutation";
+import { useEffect } from "react";
+
 function App() {
-  const [data, setData] = useState<{ imageData: string[] }>({ imageData: [] });
+  const { mutate, data: imageData } = useGetImageDataMutation();
 
-  const setImageData = (data: string[]) => {
-    console.log(data);
+  useEffect(() => {
+    mutate("rose");
 
-    setData({ imageData: data });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const imageURLs = imageData?.hits.map(
+    (it: Item) => it.webformatURL
+  ) as string[];
+
+  const onChangeEvent = (imageValue: string) => {
+    console.log({ imageValue });
+    mutate(imageValue);
   };
 
   return (
@@ -16,8 +27,8 @@ function App() {
       <h1 className="text-center text-2xl font-bold m-2">
         My React Photo book
       </h1>
-      <SearchInput setImageData={setImageData} />
-      <Photobook imageData={data.imageData} />
+      <SearchInput onChangeEvent={onChangeEvent} />
+      <Photobook imageData={imageURLs || []} />
     </div>
   );
 }
