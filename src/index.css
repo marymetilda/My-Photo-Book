@@ -44,13 +44,14 @@
 }
 
 .photobook-item {
-  width: 350px;
-  height: 500px;
+  width: 185px;
+  height: 300px;
   transform-origin: 100% 50%;
   position: absolute;
   backface-visibility: visible;
-  top: -250px;
-  left: -175px;
+  top: -150px;
+  left: -10px;
+  right: -10px;
   border: 2px solid #eee;
   border-radius: 8px;
   background-color: #111;
@@ -59,4 +60,13 @@
   background-position: center;
   transition: 1.25s all cubic-bezier(0.17, 0.75, 0.6, 0.95);
   box-shadow: (0px 10px 25px -1px rgba(0.25, 0.25, 0.25, 0.25));
+}
+
+@media (min-width: 750px) {
+.photobook-item {
+   width: 350px;
+  height: 500px;
+  top: -250px;
+  left: -175px;
+}
 }
